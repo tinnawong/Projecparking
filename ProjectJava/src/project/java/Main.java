@@ -11,8 +11,8 @@ import java.time.LocalDate;
 public class Main {
 
 	public static void main(String[] args) {
-		FileIO f = new FileIO();
-		f.IO();
+		CalculateTime c = new CalculateTime();
+		FileIO.writerCheckin();	
 	}
 
 }

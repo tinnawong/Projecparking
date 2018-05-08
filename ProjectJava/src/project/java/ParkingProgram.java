@@ -7,6 +7,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
 import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.Color;
@@ -19,6 +20,7 @@ import javax.swing.Action;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.nio.channels.Selector;
 import java.sql.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
@@ -48,7 +50,7 @@ public class ParkingProgram extends JFrame {
 					ParkingProgram frame = new ParkingProgram();
 					frame.setVisible(true);
 					
-					System.out.println(Time.chooseTime);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -120,6 +122,7 @@ public class ParkingProgram extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				textUsertime.setEnabled(false);
 				Time.chooseTime=1;
+				System.out.println(Time.chooseTime);
 			}
 		});
 		rRealTime.setBounds(22, 20, 103, 21);
@@ -127,7 +130,7 @@ public class ParkingProgram extends JFrame {
 		rRealTime.setFont(new Font("AngsanaUPC", Font.PLAIN, 30));
 		rRealTime.setForeground(new Color(0, 0, 0));
 		rRealTime.setBackground(Color.WHITE);
-		rRealTime.setSelected(true);
+		
 		
 		
 		// radio user time
@@ -137,6 +140,8 @@ public class ParkingProgram extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				textUsertime.setEnabled(true);
 				Time.chooseTime=2;
+				System.out.println(Time.chooseTime);
+				
 				}
 		});
 		rUsertime.setBounds(22, 58, 117, 21);
@@ -167,6 +172,20 @@ public class ParkingProgram extends JFrame {
 		JButton bOk = new JButton("OK");
 		bOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {	
+				if(Time.chooseTime==1) {
+					Time.timeNow();
+				}
+				else if(Time.chooseTime==2) {
+					Time.putdate= textUsertime.getText();
+					Time.timeNow();
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Please choos time.");
+				}
+				
+				if(Time.chooseTime==1 || Time.chooseTime==2) {
+					JOptionPane.showMessageDialog(null, "today"+Time.today );
+				}
 				
 			}
 		});
@@ -214,6 +233,8 @@ public class ParkingProgram extends JFrame {
 				textUsertime.setText(null);
 				textID.setText(null);
 				textLicense.setText(null);
+				rRealTime.setSelected(true);
+				
 			}
 		});
 		bClear.setMargin(new Insets(2, 14, 6, 14));
